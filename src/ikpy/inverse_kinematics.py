@@ -4,7 +4,7 @@ import numpy as np
 from . import logs
 
 
-def inverse_kinematic_optimization(chain, target_frame, starting_nodes_angles, regularization_parameter=None, max_iter=None):
+def inverse_kinematic_optimization(chain, target_frame, starting_nodes_angles, regularization_parameter=None, max_iter=None, epsilon=None,tol=None):
     """Computes the inverse kinematic on the specified target with an optimization method
 
     :param ikpy.chain.Chain chain: The chain used for the Inverse kinematics.
@@ -44,6 +44,10 @@ def inverse_kinematic_optimization(chain, target_frame, starting_nodes_angles, r
     # Manage iterations maximum
     if max_iter is not None:
         options["maxiter"] = max_iter
+    if epsilon is not None:
+        options["eps"] = epsilon
+    if tol is not None:
+        options["tol"]=tol
 
     # Utilisation d'une optimisation L-BFGS-B
     res = scipy.optimize.minimize(optimize_total, chain.active_from_full(starting_nodes_angles), method='L-BFGS-B', bounds=real_bounds, options=options)
