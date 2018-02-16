@@ -47,7 +47,7 @@ def inverse_kinematic_optimization(chain, target_frame, starting_nodes_angles, r
     if epsilon is not None:
         options["eps"] = epsilon
     if tol is not None:
-        options["tol"]=tol
+        options["ftol"]=tol
 
     # Utilisation d'une optimisation L-BFGS-B
     res = scipy.optimize.minimize(optimize_total, chain.active_from_full(starting_nodes_angles), method='L-BFGS-B', bounds=real_bounds, options=options)
